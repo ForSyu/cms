@@ -1,4 +1,4 @@
-package com.briup.apps.cms;
+package com.syu.apps.cms;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

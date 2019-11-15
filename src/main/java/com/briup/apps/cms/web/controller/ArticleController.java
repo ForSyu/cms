@@ -17,6 +17,9 @@ import com.briup.apps.cms.service.IArticleService;
 import com.briup.apps.cms.utils.Message;
 import com.briup.apps.cms.utils.MessageUtil;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
@@ -45,13 +48,21 @@ public class ArticleController {
     }
     
     @PostMapping("saveOrUpdate")
+    @ApiImplicitParams({
+    		@ApiImplicitParam(name = "id",value = "编号",paramType = "form"),
+    		@ApiImplicitParam(name = "title",value = "标题" ,required = true,paramType = "form"),
+    		@ApiImplicitParam(name = "content",value = "正文" ,required = true,paramType = "form"),
+    		@ApiImplicitParam(name = "source",value = "原内容" ,required = true,paramType = "form"),
+    		@ApiImplicitParam(name = "categoryId",value = "栏目编号" ,required = true,paramType = "form"),
+    		@ApiImplicitParam(name = "authorId",value = "作者编号" ,required = true,paramType = "form")
+    })
     public Message saveOrUpdate(
-    		@ApiParam(value = "编号") @RequestParam(value = "id",required = false) Integer id,
-    		@ApiParam(value = "标题" ,required = true) @RequestParam(value = "title") String title,
-    		@ApiParam(value = "正文" ,required = true) @RequestParam(value = "content") String content,
-    		@ApiParam(value = "原内容" ,required = true) @RequestParam(value = "source") String source,
-    		@ApiParam(value = "栏目编号" ,required = true) @RequestParam(value = "categortId") Integer categoryId,
-    		@ApiParam(value = "作者编号" ,required = true) @RequestParam(value = "authorId") Integer authorId) {
+    		Integer id,
+    		String title,
+    		String content,
+    		String source,
+    		Integer categoryId,
+    		Integer authorId) {
     	
     	Article article = new Article();
     	article.setId(id);
@@ -63,5 +74,15 @@ public class ArticleController {
     	
     	articleService.saveOrUpdate(article);
     	return MessageUtil.success("更新成功！", null);
+    }
+    
+    @ApiOperation("通过id删除")
+    @GetMapping("deleteById")
+    @ApiImplicitParams(
+    		@ApiImplicitParam(name = "id",value = "编号",required = true,paramType = "query")
+    )
+    public Message deleteById(Integer id) {
+    	articleService.deleteById(id);
+    	return MessageUtil.success("删除成功！");
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.briup.apps.cms.bean.Article;
 import com.briup.apps.cms.bean.Category;
 import com.briup.apps.cms.bean.Comment;
+import com.briup.apps.cms.bean.User;
 
 public class ArticleExtend extends Article {
 	
@@ -13,8 +14,17 @@ public class ArticleExtend extends Article {
 	public static final String STATUS_CHECK_PASS="审核通过";
 	private Category category;
     private List<Comment> comments;
+    private User user;
+    
+    public User getUser() {
+		return user;
+	}
 
-    public Category getCategory() {
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Category getCategory() {
         return category;
     }
 

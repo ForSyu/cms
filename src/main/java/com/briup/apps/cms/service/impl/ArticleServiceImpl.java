@@ -36,25 +36,33 @@ public class ArticleServiceImpl implements IArticleService {
 		return articleExtendMapper.selectById(id);
 	}
 
-
 	@Override
 	public void saveOrUpdate(Article article) throws customerException {
 		if(article.getId()!=null) {
+			article.setPublishTime(System.currentTimeMillis());
 			articleMapper.updateByPrimaryKey(article);
 		}else {
+			
 			ArticleExample 	example = new ArticleExample();
 			example.createCriteria().andTitleEqualTo(article.getTitle());
 			List<Article> list = articleMapper.selectByExample(example);
 			if(list.size()>0) {
 				throw new customerException("文章标题不能重复！");
 			}
-			
 			article.setStatus(ArticleExtend.STATUS_UNCHECK);
 			article.setPublishTime(System.currentTimeMillis());
 			article.setThumbDown(0);
 			article.setThumbUp(0);
 			article.setReadTimes(0l);
 			articleMapper.insert(article);
+		}
+	}
+	@Override
+	public void deleteById(int id) throws customerException {
+		if(this.findById(id)!=null) {
+			articleMapper.deleteByPrimaryKey(id);
+		}else {
+			throw new customerException("文章不存在！");
 		}
 	}
 }

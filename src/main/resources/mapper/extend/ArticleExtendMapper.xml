@@ -21,6 +21,10 @@
             property="category"
             column="category_id"
             select="com.briup.apps.cms.dao.CategoryMapper.selectByPrimaryKey"></association>
+    <association
+            property="user"
+            column="author_id"
+            select="com.briup.apps.cms.dao.UserMapper.selectByPrimaryKey"></association>
   </resultMap>
 
   <resultMap

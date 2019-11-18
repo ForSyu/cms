@@ -13,7 +13,7 @@
     WHERE id = #{id,jdbcType=BIGINT}
   </select>
   
-    <select id="selectByLimit" parameterType="int" resultMap="com.briup.apps.cms.dao.ArticleMapper.ResultMapWithBLOBs">
+    <select id="selectByLimit" parameterType="int" resultMap="com.briup.apps.cms.dao.ArticleMapper.BaseResultMap">
     SELECT *
     FROM cms_article
     limit #{param1},#{param2}
@@ -22,7 +22,7 @@
   <resultMap
           id="ArticleExtendResultMap1"
           type="com.briup.apps.cms.bean.extend.ArticleExtend"
-          extends="com.briup.apps.cms.dao.ArticleMapper.ResultMapWithBLOBs">
+          extends="com.briup.apps.cms.dao.ArticleMapper.BaseResultMap">
     <association
             property="category"
             column="category_id"
@@ -36,7 +36,7 @@
   <resultMap
           id="ArticleExtendResultMap2"
           type="com.briup.apps.cms.bean.extend.ArticleExtend"
-          extends="com.briup.apps.cms.dao.ArticleMapper.ResultMapWithBLOBs">
+          extends="com.briup.apps.cms.dao.ArticleMapper.BaseResultMap">
     <association
             property="category"
             column="category_id"

@@ -11,7 +11,7 @@ import com.briup.apps.cms.bean.CategoryExample;
 import com.briup.apps.cms.dao.CategoryMapper;
 import com.briup.apps.cms.dao.extend.CategoryExtendMapper;
 import com.briup.apps.cms.service.ICategoryService;
-import com.briup.apps.cms.utils.customerException;
+import com.briup.apps.cms.utils.CustomerException;
 
 @Service
 public class CategoryServiceImpl implements ICategoryService {
@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements ICategoryService {
     private CategoryExtendMapper categoryExtendMapper;
 
 	@Override
-	public void saveOrUpdate(Category category) throws customerException{
+	public void saveOrUpdate(Category category) throws CustomerException{
 		if(category.getId()!=null){
 			categoryMapper.updateByPrimaryKey(category);
 		} else {
@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements ICategoryService {
 			example.createCriteria().andNameEqualTo(category.getName());
 			List<Category> list = categoryMapper.selectByExample(example);
 			if(list.size()>0) {
-				throw new customerException("文章标题不能重复！");
+				throw new CustomerException("文章标题不能重复！");
 			}
 			categoryMapper.insert(category);
 		}
@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements ICategoryService {
 		if(category!=null) {
 			categoryMapper.deleteByPrimaryKey(category_id);
 		}else {
-			throw new customerException("栏目不存在！");
+			throw new CustomerException("栏目不存在！");
 		}
 	}
 

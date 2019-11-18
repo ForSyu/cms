@@ -13,7 +13,7 @@ import com.briup.apps.cms.bean.extend.ArticleExtend;
 import com.briup.apps.cms.dao.ArticleMapper;
 import com.briup.apps.cms.dao.extend.ArticleExtendMapper;
 import com.briup.apps.cms.service.IArticleService;
-import com.briup.apps.cms.utils.customerException;
+import com.briup.apps.cms.utils.CustomerException;
 
 @Service
 public class ArticleServiceImpl implements IArticleService {
@@ -38,7 +38,7 @@ public class ArticleServiceImpl implements IArticleService {
 	}
 
 	@Override
-	public void saveOrUpdate(Article article) throws customerException {
+	public void saveOrUpdate(Article article) throws CustomerException {
 		if(article.getId()!=null) {
 			article.setPublishTime(System.currentTimeMillis());
 			articleMapper.updateByPrimaryKey(article);
@@ -48,7 +48,7 @@ public class ArticleServiceImpl implements IArticleService {
 			example.createCriteria().andTitleEqualTo(article.getTitle());
 			List<Article> list = articleMapper.selectByExample(example);
 			if(list.size()>0) {
-				throw new customerException("文章标题不能重复！");
+				throw new CustomerException("文章标题不能重复！");
 			}
 			article.setStatus(ArticleExtend.STATUS_UNCHECK);
 			article.setPublishTime(System.currentTimeMillis());
@@ -59,11 +59,11 @@ public class ArticleServiceImpl implements IArticleService {
 		}
 	}
 	@Override
-	public void deleteById(int id) throws customerException {
+	public void deleteById(int id) throws CustomerException {
 		if(this.findById(id)!=null) {
 			articleMapper.deleteByPrimaryKey(id);
 		}else {
-			throw new customerException("文章不存在！");
+			throw new CustomerException("文章不存在！");
 		}
 	}
 	@Override

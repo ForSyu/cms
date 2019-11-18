@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.briup.apps.cms.bean.Category;
 import com.briup.apps.cms.bean.CategoryExample;
 import com.briup.apps.cms.dao.CategoryMapper;
+import com.briup.apps.cms.dao.extend.CategoryExtendMapper;
 import com.briup.apps.cms.service.ICategoryService;
 import com.briup.apps.cms.utils.customerException;
 
@@ -17,6 +18,8 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Resource
     private CategoryMapper categoryMapper;
+    @Resource
+    private CategoryExtendMapper categoryExtendMapper;
 
 	@Override
 	public void saveOrUpdate(Category category) throws customerException{
@@ -60,5 +63,11 @@ public class CategoryServiceImpl implements ICategoryService {
 		for(int id:ids) {
 			this.deleteById(id);
 		}
+	}
+
+	@Override
+	public List<Category> findByLimit(int page, int size) {
+		List<Category> byLimit = categoryExtendMapper.selectByLimit((page-1)*size, size);
+		return byLimit;
 	}
 }

@@ -12,4 +12,6 @@ public interface ArticleExtendMapper {
 	
 	List<ArticleExtend> selectAllWithBLOBs();
 	
+	List<ArticleExtend> selectByLimit(int page,int size);
+	
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.briup.apps.cms.bean.Article;
 import com.briup.apps.cms.bean.ArticleExample;
+import com.briup.apps.cms.bean.Category;
 import com.briup.apps.cms.bean.extend.ArticleExtend;
 import com.briup.apps.cms.dao.ArticleMapper;
 import com.briup.apps.cms.dao.extend.ArticleExtendMapper;
@@ -64,5 +65,10 @@ public class ArticleServiceImpl implements IArticleService {
 		}else {
 			throw new customerException("文章不存在！");
 		}
+	}
+	@Override
+	public List<ArticleExtend> findByLimit(int page, int size) {
+		List<ArticleExtend> byLimit = articleExtendMapper.selectByLimit((page-1)*size, size);
+		return byLimit;
 	}
 }

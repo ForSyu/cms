@@ -15,4 +15,6 @@ public interface ICategoryService {
     void batchDelete(int[] ids) throws customerException;
     
     Category findById(int category_id);
+    
+    List<Category> findByLimit(int page,int size);
 }

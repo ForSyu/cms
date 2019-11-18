@@ -53,4 +53,10 @@ public class CategoryController {
 		Category category = categoryService.findById(category_id);
 		return MessageUtil.success(category);
 	}
+	
+	@PostMapping(value = "findByLimit")
+	public Message findByLimit(@RequestBody int[] limits) {
+		List<Category> category = categoryService.findByLimit(limits[0], limits[1]);
+		return MessageUtil.success(category);
+	}
 }

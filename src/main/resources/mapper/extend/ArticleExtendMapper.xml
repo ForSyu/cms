@@ -12,6 +12,12 @@
     FROM cms_article
     WHERE id = #{id,jdbcType=BIGINT}
   </select>
+  
+    <select id="selectByLimit" parameterType="int" resultMap="com.briup.apps.cms.dao.ArticleMapper.ResultMapWithBLOBs">
+    SELECT *
+    FROM cms_article
+    limit #{param1},#{param2}
+  </select>
 
   <resultMap
           id="ArticleExtendResultMap1"

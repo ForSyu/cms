@@ -2,20 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.briup.apps.cms.dao.extend.CategoryExtendMapper">
 
-  <select id="selectAll" resultMap="ArticleExtendResultMap">
+  <select id="selectByLimit" parameterType="int" resultMap="com.briup.apps.cms.dao.CategoryMapper.BaseResultMap">
     SELECT *
     FROM cms_category
+    limit #{param1},#{param2}
   </select>
-
-  <resultMap
-          id="ArticleExtendResultMap"
-          type="com.briup.apps.cms.bean.extend.CategoryExtends"
-          extends="com.briup.apps.cms.dao.ArticleMapper.ResultMapWithBLOBs">
-    <association
-            property="category"
-            column="parent_id"
-            select="com.briup.apps.cms.dao.CategoryMapper.selectByPrimaryKey"></association>
-  </resultMap>
-
-
+  
 </mapper>

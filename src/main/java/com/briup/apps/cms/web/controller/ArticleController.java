@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.briup.apps.cms.bean.Article;
+import com.briup.apps.cms.bean.Category;
 import com.briup.apps.cms.bean.extend.ArticleExtend;
 import com.briup.apps.cms.service.IArticleService;
 import com.briup.apps.cms.utils.Message;
@@ -85,4 +87,10 @@ public class ArticleController {
     	articleService.deleteById(id);
     	return MessageUtil.success("删除成功！");
     }
+    
+	@PostMapping(value = "findByLimit")
+	public Message findByLimit(@RequestBody int[] limits) {
+		List<ArticleExtend> article = articleService.findByLimit(limits[0], limits[1]);
+		return MessageUtil.success(article);
+	}
 }

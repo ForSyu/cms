@@ -3,6 +3,7 @@ package com.briup.apps.cms.service;
 import java.util.List;
 
 import com.briup.apps.cms.bean.Article;
+import com.briup.apps.cms.bean.Category;
 import com.briup.apps.cms.bean.extend.ArticleExtend;
 import com.briup.apps.cms.utils.customerException;
 
@@ -16,4 +17,6 @@ public interface IArticleService {
 	ArticleExtend findById(long id);
 	
 	void deleteById(int id) throws customerException ;
+	
+	List<ArticleExtend> findByLimit(int page,int size);
 }

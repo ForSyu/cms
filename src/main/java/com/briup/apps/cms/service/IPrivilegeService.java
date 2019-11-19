@@ -17,4 +17,6 @@ public interface IPrivilegeService {
     List<PrivilegeTree> findPrivilegeTree();
 
     List<Privilege> findByUserId(Integer id);
+    
+    void deleteById(Integer id);
 }

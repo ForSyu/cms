@@ -55,4 +55,9 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
 	public List<Privilege> findByUserId(Integer id) {
 		return PrivilegeExtendMapper.selectByUserId(id);
 	}
+
+	@Override
+	public void deleteById(Integer id) {
+		PrivilegeMapper.deleteByPrimaryKey(id);
+	}
 }

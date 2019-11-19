@@ -55,6 +55,11 @@ public class PrivilegeController {
         return MessageUtil.success(list);
     }
 
-
+    @ApiOperation(value = "通过ID删除")
+    @GetMapping(value = "deleteById")
+    public Message deleteById(Integer id){
+        basePrivilegeService.deleteById(id);
+        return MessageUtil.success("删除成功");
+    }
 
 }

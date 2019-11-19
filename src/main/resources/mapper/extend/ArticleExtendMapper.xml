@@ -13,7 +13,7 @@
     WHERE id = #{id,jdbcType=BIGINT}
   </select>
   
-    <select id="selectByLimit" parameterType="int" resultMap="com.briup.apps.cms.dao.ArticleMapper.BaseResultMap">
+    <select id="selectByLimit" parameterType="int" resultMap="com.briup.apps.cms.dao.extend.ArticleExtendMapper.ArticleExtendResultMap1">
     SELECT *
     FROM cms_article
     limit #{param1},#{param2}

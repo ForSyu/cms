@@ -50,4 +50,9 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
     public List<PrivilegeTree> findPrivilegeTree() {
         return PrivilegeExtendMapper.selectAll();
     }
+
+	@Override
+	public List<Privilege> findByUserId(Integer id) {
+		return PrivilegeExtendMapper.selectByUserId(id);
+	}
 }

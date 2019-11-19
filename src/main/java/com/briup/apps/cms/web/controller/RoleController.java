@@ -1,11 +1,13 @@
 package com.briup.apps.cms.web.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,6 +54,14 @@ public class RoleController {
     public Message saveOrUpdate(Role role){
         baseRoleService.saveOrUpdate(role);
         return MessageUtil.success("更新成功");
+    }
+    
+    @ApiOperation(value ="为角色授权")
+    @PostMapping(value = "authorization")
+    public Message authorization(Integer id, Integer[] privileges){
+    	List<Integer> ids = Arrays.asList(privileges);
+        baseRoleService.authorization(id,ids);
+        return MessageUtil.success("授权成功");
     }
 
 }

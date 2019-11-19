@@ -15,4 +15,6 @@ public interface IRoleService {
     void saveOrUpdate(Role baseRole) throws CustomerException;
     
     void deleteById(Integer id) throws CustomerException;
+    
+    void authorization(Integer roleId,List<Integer> privilegeIds);
 }

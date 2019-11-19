@@ -5,9 +5,11 @@ import java.util.List;
 import com.briup.apps.cms.bean.User;
 import com.briup.apps.cms.bean.extend.UserExtend;
 import com.briup.apps.cms.utils.CustomerException;
+import com.briup.apps.cms.vm.UserVM;
 
 public interface IUserService {
-
+	User login(UserVM userVM) throws CustomerException;
+	
     UserExtend findById(Integer id);
 
     List<User> findAll();

@@ -20,6 +20,16 @@
     AND rp.privilege_id = p.id
     AND r.id = #{id,jdbcType=INTEGER}
   </select>
+  
+    <select id="selectByUserId" resultType="com.briup.apps.cms.bean.Privilege">
+	    select p.*
+	    from cms_user u ,cms_user_role ur, cms_role r, cms_role_privilege rp ,cms_privilege p
+	    where u.id = ur.user_id
+	    and r.id = ur.role_id
+	    and rp.role_id = r.id
+	    and rp.privilege_id = p.id
+	    and u.id = #{id,jdbcType=INTEGER}
+  </select>
 
   <resultMap id="PrivilegeTreeResultMap" type="com.briup.apps.cms.vm.PrivilegeTree" extends="com.briup.apps.cms.dao.PrivilegeMapper.BaseResultMap">
     <collection property="children" column="id" select="selectByParentId"></collection>

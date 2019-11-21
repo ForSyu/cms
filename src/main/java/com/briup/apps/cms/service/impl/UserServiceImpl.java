@@ -109,7 +109,6 @@ public class UserServiceImpl implements IUserService {
         // 一次判断老的角色是否存在于roles中，如果不存在则删除
         for(Userrole userRole : list){
             if(!roles.contains(userRole.getRoleId())){
-                UserroleExample example1 = new UserroleExample();
                 UserRoleMapper.deleteByPrimaryKey(userRole.getId());
             }
         }

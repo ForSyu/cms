@@ -1,5 +1,6 @@
 package com.briup.apps.cms.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,6 @@ import com.briup.apps.cms.bean.Privilege;
 import com.briup.apps.cms.service.IPrivilegeService;
 import com.briup.apps.cms.utils.CustomerException;
 import com.briup.apps.cms.utils.JwtTokenUtil;
-
 
 public class JwtInterceptor extends HandlerInterceptorAdapter {
 
@@ -37,15 +37,25 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
         // 验证权限，通过token获取用户id，通过用户id获取权限，这里可以使用redis将用户信息维护在缓存中，减少与数据库交互次数
         Integer id = Integer.parseInt(JwtTokenUtil.getUserId(token,JwtTokenUtil.base64Secret));
         this.auth(id,request.getServletPath());
-
         return true;
     }
 
     // 判断权限
-    private void auth(Integer userId,String path){
-        List<Privilege> privileges = basePrivilegeService.findByParentId(userId);
+    private boolean auth(Integer userId,String path){
+    	if(path.contains("user")) {
+    		return true;
+    	}
+        List<Privilege> privileges = basePrivilegeService.findByUserId(userId);
+        List<Privilege> privilegesAll = new ArrayList<>();
         for(Privilege p : privileges){
-            System.out.println(p.getRoute());
+        	privilegesAll.addAll(basePrivilegeService.findByParentId(p.getId()));
         }
+        privileges.addAll(privilegesAll);
+        for(Privilege p : privileges){
+        	if(p.getRoute().matches(path)) {
+        		return true;
+        	}
+        }
+        throw new CustomerException("权限不足！");
     }
 }

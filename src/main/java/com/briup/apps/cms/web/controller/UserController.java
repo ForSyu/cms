@@ -53,6 +53,7 @@ public class UserController {
     @PostMapping("logout")
     public Message logout(){
         // 1. 登录， token从缓存中移除掉
+    	
         return MessageUtil.success("退出成功");
     }
 
